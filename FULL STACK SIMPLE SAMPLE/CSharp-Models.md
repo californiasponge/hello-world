@@ -1,4 +1,5 @@
-##FULL STACK EXAMPLE  
+## FULL STACK EXAMPLE  
+**DOMAIN AND REQUEST CLASSES BELOW**  
 
 using System;  
 using System.ComponentModel.DataAnnotations;  
