@@ -1,36 +1,36 @@
 ## STORED PROCEDURES:
 
-###**CREATE NEW USER**
-ALTER PROC [dbo].[users_insert]
-		@id INT OUTPUT,
-		@first_name NVARCHAR(150),
-		@last_name NVARCHAR(150),
-		@age INT,
-		@weight INT,
-		@height INT,
-		@email NVARCHAR(150),
-		@password NVARCHAR(255)
+###**CREATE NEW USER**  
+ALTER PROC [dbo].[users_insert]  
+		@id INT OUTPUT,  
+		@first_name NVARCHAR(150),   
+		@last_name NVARCHAR(150),  
+		@age INT,  
+		@weight INT,  
+		@height INT,  
+		@email NVARCHAR(150),  
+		@password NVARCHAR(255)  
 
 AS
 
-INSERT INTO Users
+INSERT INTO Users  
 (first_name, last_name, age, weight, height, email, password)
 
-VALUES
+VALUES  
 (@first_name, @last_name, @age, @weight, @height, @email, @password)
 
-SET
+SET  
 @id = SCOPE_IDENTITY()
 
-/* ------------------------------TEST BLOCK-----------------------------------
-	DECLARE	@id INT,
-		@first_name NVARCHAR(150),
-		@last_name NVARCHAR(150),
-		@age INT,
-		@weight INT,
-		@height INT,
-		@email NVARCHAR(150),
-		@password NVARCHAR(255) 
+/* ------------------------------TEST BLOCK-----------------------------------  
+	DECLARE	@id INT,  
+		@first_name NVARCHAR(150),   
+		@last_name NVARCHAR(150),  
+		@age INT,  
+		@weight INT,  
+		@height INT,  
+		@email NVARCHAR(150),  
+		@password NVARCHAR(255)  
 		
 	EXECUTE Users_Insert
 			@id, @first_name, @last_name, @age, @weight, @height, @email, @password
@@ -40,9 +40,9 @@ SET
 ---------------------------------------------------------------------------*/
 
 
-##**LOG IN USER**
-ALTER PROC [dbo].[users_login]
-	@user_login nvarchar(255)
+##**LOG IN USER**  
+ALTER PROC [dbo].[users_login]  
+	@user_login nvarchar(255)  
 
 AS
 
@@ -60,13 +60,13 @@ EXECUTE users_login
 
 
 ##**GET ALL NOTIFICATIONS BY USER**  
-ALTER PROC [dbo].[Notifications_getAllByUser]
-		@id INT 
+ALTER PROC [dbo].[Notifications_getAllByUser]  
+		@id INT   
 AS
 
-SELECT * FROM Notifications 
-	JOIN Notification_RecipientIds ON notification_id = id
-	WHERE student_user_id = @id
+SELECT * FROM Notifications   
+	JOIN Notification_RecipientIds ON notification_id = id  
+	WHERE student_user_id = @id  
 
 /* -----TEST BLOCK-----
 
@@ -75,15 +75,15 @@ EXECUTE Notifications_getAllByUser 3
 -----------------------*/
 
 ##**DELETE A BLOG POST**  
-ALTER PROC [dbo].[Blogs_delete] 
+ALTER PROC [dbo].[Blogs_delete]   
 		@id int
 
 AS 
 
-DELETE FROM Blogs
+DELETE FROM Blogs  
 WHERE id = @id
 
-IF @@rowcount = 0
+IF @@rowcount = 0  
 throw 51000,'Cannot delete because that post does not exist', 1
 
 
@@ -96,40 +96,41 @@ throw 51000,'Cannot delete because that post does not exist', 1
 -------------------------*/
 
 
-##**UPDATE USER**
-ALTER PROC [dbo].[users_update]
-		@id INT,
-		@first_name NVARCHAR(150),
-		@last_name NVARCHAR(150),
-		@age INT,
-		@weight INT,
-		@height INT,
-		@email NVARCHAR(150),
-		@password NVARCHAR(255)
+##**UPDATE USER**  
+ALTER PROC [dbo].[users_update]  
+		@id INT,  
+		@first_name NVARCHAR(150),  
+		@last_name NVARCHAR(150),  
+		@age INT,  
+		@weight INT,  
+		@height INT,  
+		@email NVARCHAR(150),  
+		@password NVARCHAR(255)  
 AS
 
 UPDATE users
 
-SET		first_name = @first_name,
-		last_name = @last_name,
-		age = @age,
-		weight = @weight,
-		height = @height,
-		email = @email,
-		password = @password,
-		date_modified = GETUTCDATE()
+SET		first_name = @first_name,  
+		last_name = @last_name,  
+		age = @age,  
+		weight = @weight,  
+		height = @height,  
+		email = @email,  
+		password = @password,  
+		date_modified = GETUTCDATE()  
 
 WHERE id = @id
 
-/*------------------------------TEST CODE --------------------------
-	DECLARE @id INT,
-		@first_name NVARCHAR(150),
-		@last_name NVARCHAR(150),
-		@age INT,
-		@weight INT,
-		@height INT,
-		@email NVARCHAR(150),
-		@password NVARCHAR(255)
+/*------------------------------TEST CODE --------------------------  
+	DECLARE @id INT,  
+		@first_name NVARCHAR(150),  
+		@last_name NVARCHAR(150),  
+		@age INT,  
+		@weight INT,  
+		@height INT,  
+		@email NVARCHAR(150),  
+		@password NVARCHAR(255)  
+		
 	EXECUTE users_update @first_name, @last_name, @age, @weight, @height, @email, @password  
 	
 	SELECT first_name, last_name, age, weight, height, email, password, date_created, date_modified
