@@ -1,23 +1,21 @@
 ##FULL STACK EXAMPLE
 
-**SQL STORED PROCEDURE CREATE NEW USER**  
-ALTER PROC [dbo].[users_insert]  
+**SQL STORED PROCEDURE CREATE NEW EXERCISE**  
+ALTER PROC [dbo].[exercises_insert]  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@id INT OUTPUT,  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@first_name NVARCHAR(150),   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@last_name NVARCHAR(150),  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@age INT,  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@weight INT,  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@height INT,  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@email NVARCHAR(150),  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@password NVARCHAR(255)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@exercise_type_id INT,   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@date_completed DATE,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@duration INT,  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@description NVARCHAR(MAX),  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@user_id INT,    
 
 AS
 
-INSERT INTO Users  
-&nbsp;&nbsp;(first_name, last_name, age, weight, height, email, password)
+INSERT INTO exercises  
+&nbsp;&nbsp;(exercise_type_id, date_completed, duration, description, user_id)
 
 VALUES  
-&nbsp;&nbsp;(@first_name, @last_name, @age, @weight, @height, @email, @password)
+&nbsp;&nbsp;(@exercise_type_id, @date_completed, @duration, @description, @user_id)
 
 SET  
 &nbsp;&nbsp;@id = SCOPE_IDENTITY()
@@ -25,16 +23,14 @@ SET
 /* ----------------------------------------------------------TEST BLOCK-------------------------------------------------------------  
 
 	DECLARE	@id INT,  
-		@first_name NVARCHAR(150),   
-		@last_name NVARCHAR(150),  
-		@age INT,  
-		@weight INT,  
-		@height INT,  
-		@email NVARCHAR(150),  
-		@password NVARCHAR(255)  
-		
-	EXECUTE Users_Insert @id, @first_name, @last_name, @age, @weight, @height, @email, @password
+		@exercise_type_id INT,   
+		@date_completed DATE,  
+		@duration INT,  
+		@description NVARCHAR(MAX),  
+		@user_id INT,  
+		  
+	EXECUTE exercises_insert @id, @exercise_type_id, @date_completed, @duration, @description NVARCHAR(MAX), @user_id INT
 
-	SELECT first_name, last_name, age, weight, height, email, password, date_created, date_modified
-	FROM Users
+	SELECT id, exercise_type_id, date_completed, duration, description, date_created, date_modified, user_id
+	FROM exercises
 -----------------------------------------------------------------------------------------------------------------------------------*/
