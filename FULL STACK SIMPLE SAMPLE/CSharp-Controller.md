@@ -14,14 +14,14 @@ using System.Web.Http.Cors;
     {  
         [Authorize]  
         [RoutePrefix("api/exercises")]  
-        [EnableCors(origins: "http://192.168.1.109:19001", headers:"*", methods:"*")]  
+        [EnableCors(origins: "http://000.000.0.000:19001", headers:"*", methods:"*")]  
         public class ExercisesController : ApiController  
         {  
             readonly IExerciseService exerciseService;  
 
             public ExercisesController(IExerciseService exerciseService)  
             {  
-                this.exerciseService = exerciseService;  
+                this.exerciseService = exerciseService;
             }  
             
             [HttpPost, Route("new-exercise")]  
@@ -31,7 +31,7 @@ using System.Web.Http.Cors;
                 {  
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);  
                 }  
-                req.UserId = int.Parse(User.Identity.Name);  
+                req.UserId = int.Parse(User.Identity.Name);  //Cookie was set on login, grab user ID 
 
                 int newId = exerciseService.Create(req);  
 
